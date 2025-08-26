@@ -1,26 +1,362 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #0a0a0a;
+  --color-card-foreground: #ffffff;
+  --color-popover: #0a0a0a;
+  --color-popover-foreground: #ffffff;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #000000;
+  --color-secondary: #1a1a1a;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #1a1a1a;
+  --color-muted-foreground: #888888;
+  --color-accent: #1a1a1a;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #ff4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #333333;
+  --color-input: #333333;
+  --color-ring: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Terminal-style base styles */
+body {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 2;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Terminal cursor effect */
+.terminal-cursor::after {
+  content: '|';
+  color: #ffffff;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Enhanced starfield with more visible animation */
+.starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: 
+    radial-gradient(2px 2px at 25px 5px, #ffffff, transparent),
+    radial-gradient(1px 1px at 50px 25px, #ffffff, transparent),
+    radial-gradient(2px 2px at 125px 20px, #ffffff, transparent),
+    radial-gradient(1px 1px at 150px 75px, #ffffff, transparent),
+    radial-gradient(2px 2px at 200px 50px, #ffffff, transparent),
+    radial-gradient(1px 1px at 275px 100px, #ffffff, transparent),
+    radial-gradient(2px 2px at 300px 25px, #ffffff, transparent),
+    radial-gradient(1px 1px at 350px 75px, #ffffff, transparent),
+    radial-gradient(2px 2px at 400px 50px, #ffffff, transparent),
+    radial-gradient(1px 1px at 450px 100px, #ffffff, transparent),
+    radial-gradient(1px 1px at 75px 150px, #ffffff, transparent),
+    radial-gradient(2px 2px at 175px 100px, #ffffff, transparent),
+    radial-gradient(1px 1px at 225px 200px, #ffffff, transparent),
+    radial-gradient(2px 2px at 325px 150px, #ffffff, transparent);
+  background-repeat: repeat;
+  background-size: 500px 200px;
+  animation: starfield-drift 60s linear infinite;
+  opacity: 0.4;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes starfield-drift {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-100px) translateY(-50px); }
+}
+
+/* Floating geometric elements instead of planets */
+.geometric-element {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.2;
+  animation: geometric-float 40s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+.geometric-1 {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  top: 20%;
+  right: 15%;
+  animation-delay: 0s;
+}
+
+.geometric-2 {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  top: 60%;
+  left: 10%;
+  animation-delay: 10s;
+}
+
+.geometric-3 {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  top: 40%;
+  left: 75%;
+  animation-delay: 20s;
+}
+
+.geometric-4 {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  top: 80%;
+  right: 25%;
+  animation-delay: 30s;
+}
+
+@keyframes geometric-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg) scale(1); 
+    opacity: 0.2;
+  }
+  25% { 
+    transform: translateY(-30px) rotate(90deg) scale(1.1); 
+    opacity: 0.35;
+  }
+  50% { 
+    transform: translateY(-15px) rotate(180deg) scale(0.9); 
+    opacity: 0.25;
+  }
+  75% { 
+    transform: translateY(-25px) rotate(270deg) scale(1.05); 
+    opacity: 0.4;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Typography styles for terminal aesthetic */
+.prose {
+  color: #ffffff;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.prose [class~="lead"] {
+  color: #888888;
+}
+
+.prose a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px solid #ffffff;
+  transition: all 0.3s ease;
+}
+
+.prose a:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+  text-shadow: 0 0 8px #ffffff;
+}
+
+.prose strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.prose ol > li::marker {
+  font-weight: 400;
+  color: #888888;
+}
+
+.prose ul > li::marker {
+  color: #888888;
+}
+
+.prose hr {
+  border-color: #333333;
+  border-top-width: 1px;
+  margin: 3rem 0;
+}
+
+.prose blockquote {
+  font-weight: 400;
+  font-style: normal;
+  color: #888888;
+  border-left-width: 2px;
+  border-left-color: #ffffff;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+
+.prose h1 {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+}
+
+.prose h3 {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+}
+
+.prose h4 {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+.prose figure figcaption {
+  color: #888888;
+  font-size: 0.875rem;
+}
+
+.prose code {
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #1a1a1a;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose code::before {
+  content: none;
+}
+
+.prose code::after {
+  content: none;
+}
+
+.prose a code {
+  color: #ffffff;
+}
+
+.prose pre {
+  color: #ffffff;
+  background-color: #0a0a0a;
+  border: 1px solid #333333;
+  overflow-x: auto;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0.5rem;
+}
+
+.prose pre code {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-weight: 400;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.prose table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-collapse: collapse;
+}
+
+.prose thead {
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom: 1px solid #333333;
+}
+
+.prose thead th {
+  vertical-align: bottom;
+  padding: 0.75rem;
+  border-bottom: 1px solid #333333;
+}
+
+.prose tbody tr {
+  border-bottom: 1px solid #333333;
+}
+
+.prose tbody tr:last-child {
+  border-bottom-width: 0;
+}
+
+.prose tbody td {
+  vertical-align: baseline;
+  padding: 0.75rem;
+}
+
+.prose tfoot {
+  border-top: 1px solid #333333;
+}
+
+.prose tfoot td {
+  vertical-align: top;
+  padding: 0.75rem;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* Terminal-style selection */
+::selection {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+::-moz-selection {
+  background-color: #ffffff;
+  color: #000000;
 }
